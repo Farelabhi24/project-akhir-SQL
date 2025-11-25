@@ -1,0 +1,134 @@
+use sakila;
+
+-- Tabel users untuk autentikasi (buat baru)
+CREATE TABLE IF NOT EXISTS users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Tabel category sudah ada dengan struktur:
+-- category_id, name, last_update
+-- Kita tambahkan kolom user_id untuk tracking siapa yang membuat
+ALTER TABLE category ADD COLUMN IF NOT EXISTS user_id INT;
+ALTER TABLE category ADD COLUMN IF NOT EXISTS description TEXT;
+ALTER TABLE category ADD CONSTRAINT fk_category_user FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE SET NULL;
+
+-- Tabel riwayat aktivitas (buat baru)
+CREATE TABLE IF NOT EXISTS activity_history (
+    history_id INT AUTO_INCREMENT PRIMARY KEY,
+    table_name VARCHAR(50),
+    operation ENUM('INSERT', 'UPDATE', 'DELETE'),
+    record_id INT,
+    user_id INT,
+    old_data TEXT,
+    new_data TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE SET NULL
+);
+
+-- STORED PROCEDURE: Insert Category Baru
+DROP PROCEDURE IF EXISTS sp_insert_category;
+
+CREATE PROCEDURE sp_insert_category(
+    IN p_name VARCHAR(255),
+    IN p_description TEXT,
+    IN p_user_id INT
+)
+BEGIN
+    INSERT INTO category (name, description, user_id, last_update)
+    VALUES (p_name, p_description, p_user_id, CURRENT_TIMESTAMP);
+    
+    SELECT LAST_INSERT_ID() as category_id;
+END
+
+
+-- USER DEFINED FUNCTION: Hitung jumlah kategori per user
+DROP FUNCTION IF EXISTS fn_count_user_categories;
+
+CREATE FUNCTION fn_count_user_categories(p_user_id INT)
+RETURNS INT
+DETERMINISTIC
+READS SQL DATA
+BEGIN
+    DECLARE total INT;
+    SELECT COUNT(*) INTO total
+    FROM category
+    WHERE user_id = p_user_id;
+    RETURN total;
+END
+
+
+-- USER DEFINED FUNCTION: Dapatkan username dari user_id
+DROP FUNCTION IF EXISTS fn_get_username;
+
+CREATE FUNCTION fn_get_username(p_user_id INT)
+RETURNS VARCHAR(50)
+DETERMINISTIC
+READS SQL DATA
+BEGIN
+    DECLARE user_name VARCHAR(50);
+    SELECT username INTO user_name
+    FROM users
+    WHERE user_id = p_user_id;
+    RETURN user_name;
+END
+
+
+-- TRIGGER: Catat riwayat saat INSERT category
+DROP TRIGGER IF EXISTS tr_category_after_insert;
+
+CREATE TRIGGER tr_category_after_insert
+AFTER INSERT ON category
+FOR EACH ROW
+BEGIN
+    INSERT INTO activity_history (table_name, operation, record_id, user_id, new_data)
+    VALUES (
+        'category',
+        'INSERT',
+        NEW.category_id,
+        NEW.user_id,
+        CONCAT('Name: ', NEW.name, ' | Description: ', IFNULL(NEW.description, '-'))
+    );
+END
+
+
+-- TRIGGER: Catat riwayat saat UPDATE category
+DROP TRIGGER IF EXISTS tr_category_after_update;
+
+
+CREATE TRIGGER tr_category_after_update
+AFTER UPDATE ON category
+FOR EACH ROW
+BEGIN
+    INSERT INTO activity_history (table_name, operation, record_id, user_id, old_data, new_data)
+    VALUES (
+        'category',
+        'UPDATE',
+        NEW.category_id,
+        NEW.user_id,
+        CONCAT('Name: ', OLD.name, ' | Description: ', IFNULL(OLD.description, '-')),
+        CONCAT('Name: ', NEW.name, ' | Description: ', IFNULL(NEW.description, '-'))
+    );
+END
+
+
+-- TRIGGER: Catat riwayat saat DELETE category
+DROP TRIGGER IF EXISTS tr_category_after_delete;
+
+
+CREATE TRIGGER tr_category_after_delete
+AFTER DELETE ON category
+FOR EACH ROW
+BEGIN
+    INSERT INTO activity_history (table_name, operation, record_id, user_id, old_data)
+    VALUES (
+        'category',
+        'DELETE',
+        OLD.category_id,
+        OLD.user_id,
+        CONCAT('Name: ', OLD.name, ' | Description: ', IFNULL(OLD.description, '-'))
+    );
+END
