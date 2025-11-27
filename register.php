@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4a4c54ff 0%, #d9d9d9ff 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -99,12 +99,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #34384bff;
         }
         button {
             width: 100%;
             padding: 12px;
-            background: #667eea;
+            background: #34384bff;
             color: white;
             border: none;
             border-radius: 5px;
@@ -113,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             transition: background 0.3s;
         }
         button:hover {
-            background: #5568d3;
+            background: #8288aaff;
         }
         .error {
             background: #fee;
@@ -137,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             color: #666;
         }
         .login-link a {
-            color: #667eea;
+            color: #34384bff;
             text-decoration: none;
         }
         .login-link a:hover {
