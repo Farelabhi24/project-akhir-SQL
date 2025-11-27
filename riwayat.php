@@ -44,7 +44,7 @@ $conn->close();
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4a4c54ff 0%, #d9d9d9ff 100%);
             min-height: 100vh;
         }
         .navbar {
@@ -58,7 +58,7 @@ $conn->close();
         }
         .navbar h1 {
             font-size: 24px;
-            color: #667eea;
+            color: #34384bff;
         }
         .navbar .user-info {
             display: flex;
@@ -69,7 +69,7 @@ $conn->close();
             color: #333;
         }
         .navbar a {
-            color: #667eea;
+            color: #34384bff;
             text-decoration: none;
             padding: 8px 16px;
             background: rgba(102,126,234,0.1);
@@ -78,7 +78,7 @@ $conn->close();
             font-weight: 500;
         }
         .navbar a:hover {
-            background: #667eea;
+            background: #34384bff;
             color: white;
         }
         .container {
@@ -100,7 +100,7 @@ $conn->close();
         .trigger-badge {
             display: inline-block;
             padding: 6px 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4a4c54ff 0%, #34384bff 100%);
             color: white;
             border-radius: 20px;
             font-size: 12px;
@@ -124,7 +124,7 @@ $conn->close();
             min-width: 800px;
         }
         thead {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #34384bff 0%, #4a4c54ff 100%);
             color: white;
         }
         th {
@@ -216,10 +216,10 @@ $conn->close();
     <div class="container">
         <div class="history-card">
             <h2>📋 Riwayat Aktivitas</h2>
-            <span class="trigger-badge">⚡ Automatic Logging by Database Triggers</span>
+            <span class="trigger-badge">Automatic Logging by Database Triggers</span>
             
             <div class="info-text">
-                <strong>ℹ️ Info:</strong> Semua aktivitas INSERT, UPDATE, dan DELETE pada tabel category dicatat secara otomatis menggunakan Database Triggers. Username ditampilkan menggunakan User Defined Function (UDF).
+                <strong>Info:</strong> Semua aktivitas INSERT, UPDATE, dan DELETE pada tabel category dicatat secara otomatis menggunakan Database Triggers. Username ditampilkan menggunakan User Defined Function (UDF).
             </div>
             
             <?php if (empty($history_list)): ?>
@@ -254,13 +254,13 @@ $conn->close();
                                         <?php 
                                         $operation = $history['operation'];
                                         $badge_class = 'badge-insert';
-                                        $icon = '➕';
+                                        $icon = '';
                                         if ($operation == 'UPDATE') {
                                             $badge_class = 'badge-update';
-                                            $icon = '✏️';
+                                            $icon = '';
                                         } elseif ($operation == 'DELETE') {
                                             $badge_class = 'badge-delete';
-                                            $icon = '🗑️';
+                                            $icon = '';
                                         }
                                         ?>
                                         <span class="badge <?php echo $badge_class; ?>">
@@ -270,7 +270,7 @@ $conn->close();
                                     <td><?php echo $history['record_id']; ?></td>
                                     <td>
                                         <span class="username-badge">
-                                            🔧 <?php echo e($history['username']); ?>
+                                             <?php echo e($history['username']); ?>
                                         </span>
                                     </td>
                                     <td>
