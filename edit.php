@@ -75,7 +75,7 @@ $conn->close();
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4a4c54ff 0%, #d9d9d9ff 100%);
             min-height: 100vh;
         }
         .navbar {
@@ -89,7 +89,7 @@ $conn->close();
         }
         .navbar h1 {
             font-size: 24px;
-            color: #667eea;
+            color: #34384bff;
         }
         .navbar .user-info {
             display: flex;
@@ -100,7 +100,7 @@ $conn->close();
             color: #333;
         }
         .navbar a {
-            color: #667eea;
+            color: #34384bff;
             text-decoration: none;
             padding: 8px 16px;
             background: rgba(102,126,234,0.1);
@@ -109,7 +109,7 @@ $conn->close();
             font-weight: 500;
         }
         .navbar a:hover {
-            background: #667eea;
+            background: #34384bff;
             color: white;
         }
         .container {
@@ -156,7 +156,7 @@ $conn->close();
         }
         input:focus, textarea:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #34384bff;
         }
         textarea {
             resize: vertical;
@@ -179,11 +179,11 @@ $conn->close();
             transition: all 0.3s;
         }
         button[type="submit"] {
-            background: #667eea;
+            background: #34384bff;
             color: white;
         }
         button[type="submit"]:hover {
-            background: #5568d3;
+            background: #34384bff;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(102,126,234,0.3);
         }
@@ -233,9 +233,9 @@ $conn->close();
         <?php endif; ?>
         
         <div class="form-card">
-            <h3>✏️ Edit Kategori</h3>
+            <h3>Edit Kategori</h3>
             <div class="trigger-info">
-                ⚡ <strong>Trigger Active:</strong> Setiap perubahan akan dicatat secara otomatis di riwayat aktivitas
+                <strong>Trigger Active:</strong> Setiap perubahan akan dicatat secara otomatis di riwayat aktivitas
             </div>
             
             <form method="POST" action="">
@@ -254,13 +254,13 @@ $conn->close();
                     <label>Last Update</label>
                     <input type="text" value="<?php echo date('d/m/Y H:i:s', strtotime($category['last_update'])); ?>" disabled>
                     <small style="color: #999; display: block; margin-top: 5px;">
-                        ℹ️ Akan diupdate otomatis saat menyimpan perubahan
+                        Akan diupdate otomatis saat menyimpan perubahan
                     </small>
                 </div>
                 
                 <div class="button-group">
-                    <button type="submit">💾 Update Kategori</button>
-                    <a href="dashboard.php" class="btn btn-back">◀️ Kembali</a>
+                    <button type="submit">Update Kategori</button>
+                    <a href="dashboard.php" class="btn btn-back">Kembali</a>
                 </div>
             </form>
         </div>
