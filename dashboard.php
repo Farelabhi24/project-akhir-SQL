@@ -101,7 +101,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Category Manager</title>
+    <title>Dashboard - Category Dashboard</title>
     <style>
         * {
             margin: 0;
@@ -110,7 +110,7 @@ $conn->close();
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4a4c54ff 0%, #d9d9d9ff 100%);
             min-height: 100vh;
         }
         .navbar {
@@ -124,7 +124,7 @@ $conn->close();
         }
         .navbar h1 {
             font-size: 24px;
-            color: #667eea;
+            color: #34384bff;
         }
         .navbar .user-info {
             display: flex;
@@ -135,7 +135,7 @@ $conn->close();
             color: #333;
         }
         .navbar a {
-            color: #667eea;
+            color: #34384bff;
             text-decoration: none;
             padding: 8px 16px;
             background: rgba(102,126,234,0.1);
@@ -144,7 +144,7 @@ $conn->close();
             font-weight: 500;
         }
         .navbar a:hover {
-            background: #667eea;
+            background: #34384bff;
             color: white;
         }
         .container {
@@ -172,7 +172,7 @@ $conn->close();
         .stats-number {
             font-size: 48px;
             font-weight: bold;
-            color: #667eea;
+            color: #34384bff;
         }
         .stats-label {
             color: #666;
@@ -203,8 +203,8 @@ $conn->close();
         .sp-badge {
             display: inline-block;
             padding: 4px 10px;
-            background: #f3e5f5;
-            color: #7b1fa2;
+            background: #d1ddffff;
+            color: #34384bff;
             border-radius: 12px;
             font-size: 11px;
             font-weight: 600;
@@ -229,7 +229,7 @@ $conn->close();
         }
         input:focus, textarea:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #34384bff;
         }
         textarea {
             resize: vertical;
@@ -237,7 +237,7 @@ $conn->close();
         }
         button {
             padding: 12px 24px;
-            background: #667eea;
+            background: #34384bff;
             color: white;
             border: none;
             border-radius: 8px;
@@ -247,7 +247,7 @@ $conn->close();
             transition: all 0.3s;
         }
         button:hover {
-            background: #5568d3;
+            background: #34384bff;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(102,126,234,0.3);
         }
@@ -267,7 +267,7 @@ $conn->close();
             padding: 20px;
             margin-bottom: 15px;
             border-radius: 10px;
-            border-left: 5px solid #667eea;
+            border-left: 5px solid #34384bff;
             transition: all 0.3s;
         }
         .category-item:hover {
@@ -348,7 +348,7 @@ $conn->close();
 </head>
 <body>
     <div class="navbar">
-        <h1>📂 Category Manager</h1>
+        <h1>📂 Category Dashboard</h1>
         <div class="user-info">
             <span>👤 <strong><?php echo e($username); ?></strong></span>
             <a href="riwayat.php">📋 Riwayat</a>
@@ -375,7 +375,7 @@ $conn->close();
                 <div class="stats-number"><?php echo $total_categories; ?></div>
                 <div>
                     <div class="stats-label">Total Kategori Anda</div>
-                    <span class="udf-badge">🔧 Calculated by UDF</span>
+                    <span class="udf-badge">Calculated by UDF</span>
                 </div>
             </div>
             <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e0e0e0;">
@@ -411,13 +411,13 @@ $conn->close();
                         
                         <?php if ($category['user_id'] == $user_id): ?>
                         <div class="category-actions">
-                            <a href="edit.php?id=<?php echo $category['category_id']; ?>" class="btn-edit">✏️ Edit</a>
+                            <a href="edit.php?id=<?php echo $category['category_id']; ?>" class="btn-edit">Edit</a>
                             <a href="dashboard.php?delete=<?php echo $category['category_id']; ?>" 
                                class="btn-delete" 
-                               onclick="return confirm('⚠️ Yakin ingin menghapus kategori ini? Trigger akan mencatat aktivitas ini.')">🗑️ Hapus</a>
+                               onclick="return confirm('⚠️ Yakin ingin menghapus kategori ini? Trigger akan mencatat aktivitas ini.')">Hapus</a>
                         </div>
                         <?php else: ?>
-                        <div style="padding: 8px 12px; background: #e3f2fd; color: #1976d2; border-radius: 5px; font-size: 12px; display: inline-block; margin-top: 10px;">
+                        <div style="padding: 8px 12px; background: #e3f2fd; color: #34384bff; border-radius: 5px; font-size: 12px; display: inline-block; margin-top: 10px;">
                             👁️ View Only - Bukan milik Anda
                         </div>
                         <?php endif; ?>
@@ -441,7 +441,7 @@ $conn->close();
                     <textarea id="description" name="description" placeholder="Masukkan deskripsi kategori (opsional)"></textarea>
                 </div>
                 
-                <button type="submit">💾 Simpan Kategori</button>
+                <button type="submit">Simpan Kategori</button>
             </form>
         </div>
         
@@ -465,10 +465,10 @@ $conn->close();
                             📅 Update terakhir: <?php echo date('d/m/Y H:i', strtotime($category['last_update'])); ?>
                         </div>
                         <div class="category-actions">
-                            <a href="edit.php?id=<?php echo $category['category_id']; ?>" class="btn-edit">✏️ Edit</a>
+                            <a href="edit.php?id=<?php echo $category['category_id']; ?>" class="btn-edit">Edit</a>
                             <a href="dashboard.php?delete=<?php echo $category['category_id']; ?>" 
                                class="btn-delete" 
-                               onclick="return confirm('⚠️ Yakin ingin menghapus kategori ini? Trigger akan mencatat aktivitas ini.')">🗑️ Hapus</a>
+                               onclick="return confirm('⚠️ Yakin ingin menghapus kategori ini? Trigger akan mencatat aktivitas ini.')">Hapus</a>
                         </div>
                     </div>
                 <?php endforeach; ?>
